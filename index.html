@@ -3,38 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Выбор источника</title>
+  <title>Выберите источник флаера | Первый Творческий</title>
+  <meta name="description" content="Вам предоставлена скидка 12%. Выберите, откуда вы получили флаер: от промоутера или по почте.">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Скидка 12% — фиксированная лента сверху -->
-  <div class="discount-banner">
-    Вам предоставлена скидка <span class="highlight">12%</span>
+  <!-- Скидочная лента — сверху, фиксировано -->
+  <div class="discount-banner" aria-live="polite">
+    <span class="discount-text">Вам предоставлена скидка</span>
+    <span class="discount-value">12%</span>
   </div>
 
-  <div class="container">
-    <h1 class="title">ВЫБЕРИТЕ ОТКУДА ВЫ ПОЛУЧИЛИ ФЛАЕР?</h1>
+  <main class="main-layout">
+    <h1 class="main-title" aria-label="Заголовок: выберите откуда вы получили флаер?">
+      ВЫБЕРИТЕ ОТКУДА ВЫ ПОЛУЧИЛИ ФЛАЕР?
+    </h1>
 
-    <div class="pole-composition">
-      <!-- Столб слева -->
-      <img src="images/stolb.png" alt="Деревянный столб" class="pole" />
+    <!-- Композиция: столб + флаер + стрелки -->
+    <div class="signpost-composition">
+      <img src="images/stolb.png" alt="Деревянный указательный столб" class="signpost-pole" />
 
-      <!-- Флаер 000 справа от столба -->
-      <img src="images/000.png" alt="Флаер" class="flyer" />
+      <img src="images/000.png" alt="Флаер с предложением" class="signpost-flyer" />
 
-      <!-- Стрелки поверх -->
-      <a href="main.html" class="arrow-wrapper top">
-        <div class="arrow-img">
-          <div class="arrow-text">От промоутера</div>
-        </div>
+      <a href="main.html"
+         class="signpost-arrow signpost-arrow--top"
+         aria-label="Выбрать: от промоутера">
+        <span class="signpost-arrow__text">От промоутера</span>
       </a>
 
-      <a href="main.html" class="arrow-wrapper bottom">
-        <div class="arrow-img">
-          <div class="arrow-text">По почте</div>
-        </div>
+      <a href="main.html"
+         class="signpost-arrow signpost-arrow--bottom"
+         aria-label="Выбрать: по почте">
+        <span class="signpost-arrow__text">По почте</span>
       </a>
     </div>
-  </div>
+  </main>
+
+  <!-- Для 404 — серверная настройка не требуется, но можно добавить meta -->
+  <script>
+    // Опционально: автоматический редирект при ошибке (если нет .htaccess)
+    // document.addEventListener('DOMContentLoaded', () => {
+    //   if (window.location.pathname === '/404') window.location.href = '/';
+    // });
+  </script>
 </body>
 </html>
