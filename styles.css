@@ -1,4 +1,13 @@
-/* styles.css */
+/* styles.css — v2.1 | Профессиональная верстка */
+:root {
+  --yellow: #ffeb3b;
+  --dark: #2e2e2e;
+  --brown: #5D4037;
+  --deep-brown: #3E2723;
+  --gold: #FFC107;
+  --shadow: rgba(0, 0, 0, 0.2);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,143 +15,201 @@
 }
 
 body {
-  background-color: #ffeb3b;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--yellow);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  color: var(--deep-brown);
+  line-height: 1.5;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
 
-/* Скидочная лента — сверху */
+/* ——— Скидочная лента ——— */
 .discount-banner {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: #2e2e2e;
-  color: #fff;
+  background: var(--dark);
+  color: white;
   text-align: center;
-  padding: 12px 0;
-  font-size: 3rem;
+  padding: 14px 0;
   font-weight: 700;
+  font-size: 2.1rem;
+  letter-spacing: 1.2px;
   z-index: 100;
-  letter-spacing: 1px;
-  animation: slideInTop 0.8s ease-out;
+  animation: slideInTop 0.9s cubic-bezier(0.17, 0.67, 0.88, 1.01);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.highlight {
-  color: #ffeb3b;
-  text-shadow: 0 0 6px rgba(255, 235, 59, 0.8);
+.discount-text {
+  opacity: 0.9;
+}
+.discount-value {
+  color: var(--yellow);
+  text-shadow: 0 0 8px rgba(255, 235, 59, 0.7);
+  font-weight: 800;
+  font-size: 2.6rem;
+  margin-left: 0.4em;
 }
 
 @keyframes slideInTop {
-  from { transform: translateY(-100%); opacity: 0; }
+  from { transform: translateY(-120%); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
-.container {
-  text-align: center;
-  padding: 80px 20px 40px;
-  max-width: 800px;
+/* ——— Основной лейаут ——— */
+.main-layout {
+  padding-top: calc(120px + 2rem); /* отступ под баннер + безопасный маргин */
+  padding-left: 2rem;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-.title {
-  font-size: 2.8rem;
+.main-title {
+  font-size: 3.2rem;
   font-weight: 800;
-  color: #5D4037;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 60px;
-  text-shadow: 3px 3px 0 #FFC107;
-  line-height: 1.3;
+  letter-spacing: 4px;
+  color: var(--brown);
+  text-shadow: 3px 3px 0 var(--gold);
+  margin-bottom: 4rem;
+  line-height: 1.2;
 }
 
-/* Композиция: столб + флаер + стрелки */
-.pole-composition : relative;
-  width: 500px;
-  height: 500px;
-  margin: 0 auto;
+/* ——— Композиция указателя ——— */
+.signpost-composition {
+  position: relative;
+  width: 520px;
+  height: 620px;
 }
 
-.pole {
+.signpost-pole {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 0;
+  transform: translateY(-50%);
   width: 120px;
   height: auto;
   z-index: 1;
 }
 
-.flyer {
+.signpost-flyer {
   position: absolute;
   top: 50%;
-  right: 60px;
+  left: 135px;
   transform: translateY(-50%);
-  width: 280px;
+  width: 240px;
   height: auto;
   z-index: 1;
-  filter: drop-shadow(4px 4px 6px rgba(0,0,0,0.2));
-  animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(6px 6px 8px var(--shadow));
+  transition: transform 0.4s ease;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(-50%) rotate(0deg); }
-  50% { transform: translateY(-50%) rotate(2deg); }
+.signpost-flyer:hover {
+  transform: translateY(-50%) scale(1.02);
 }
 
 /* Стрелки */
-.arrow-wrapper {
+.signpost-arrow {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 500px;
-  height: 120px;
+  left: 0;
+  width: 450px;
+  height: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.17, 0.67, 0.88, 1.01);
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
   z-index: 2;
+  outline: none;
 }
 
-.arrow-wrapper:hover {
-  transform: translateX(-50%) translateY(-10px) rotate(3deg);
-  filter: brightness(1.1);
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+.signpost-arrow:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
-.arrow-wrapper.top { top: 140px; }
-.arrow-wrapper.bottom { top: 320px; }
+.signpost-arrow--top { top: 10px; }
+.signpost-arrow--bottom { top: 320px; }
 
-.arrow-img {
+.signpost-arrow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background: url('images/r.png') no-repeat center center;
   background-size: contain;
-  position: relative;
+  z-index: -1;
 }
 
-.arrow-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2.2rem;
+.signpost-arrow__text {
+  font-size: 2.0rem;
   font-weight: 800;
-  color: #3E2723;
-  text-shadow: 2px 2px 0 #FFD54F;
+  color: var(--deep-brown);
+  text-shadow: 2px 2px 0 var(--gold);
   text-transform: uppercase;
   white-space: nowrap;
   pointer-events: none;
+  letter-spacing: 1px;
 }
 
-/* Адаптация */
+.signpost-arrow:hover {
+  transform: translateY(-8px) rotate(2.5deg);
+  filter: brightness(1.08);
+  box-shadow: 0 10px 22px var(--shadow);
+}
+
+/* ——— Адаптив ——— */
 @media (max-width: 600px) {
-  .title { font-size: 2rem; }
-  .pole-composition { width: 350px; height: 400px; }
-  .flyer { right: 30px; width: 200px; }
-  .arrow-wrapper { width: 350px; height: 90px; }
-  .arrow-text { font-size: 1.6rem; }
+  .main-title {
+    font-size: 2.3rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .signpost-composition {
+    width: 380px;
+    height: 500px;
+  }
+
+  .signpost-pole {
+    width 90px;
+  }
+
+  .signpost-flyer {
+    left: 100px;
+    width: 180px;
+  }
+
+  .signpost-arrow {
+    width: 340px;
+    height: 90px;
+  }
+
+  .signpost-arrow__text {
+    font-size: 1.5rem;
+  }
+
+  .discount-banner {
+    font-size: 1.6rem;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 360px) {
+  .main-layout {
+    padding-left: 1rem;
+  }
+
+  .signpost-composition {
+    width: 320px;
+    height: 460px;
+  }
+
+  .signpost-flyer {
+    left: 80px;
+    width: 150px;
+  }
 }
