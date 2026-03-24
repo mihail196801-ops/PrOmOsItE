@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
     <style>
         * {
             margin: 0;
@@ -24,11 +27,9 @@
             padding: 2rem 1.5rem;
             position: relative;
             background: #0a0f1a;
-            /* анимационный фон с волнами */
             overflow-x: hidden;
         }
 
-        /* Уникальный анимированный фон */
         .animated-bg {
             position: fixed;
             top: 0;
@@ -74,7 +75,6 @@
             }
         }
 
-        /* волны SVG */
         .waves {
             position: absolute;
             bottom: 0;
@@ -102,7 +102,6 @@
             backdrop-filter: blur(2px);
         }
 
-        /* Hero секция */
         .hero {
             text-align: center;
             margin-bottom: 3rem;
@@ -146,7 +145,6 @@
             display: inline-block;
         }
 
-        /* Карточки с иконками — только кнопки, без картинок */
         .cards-grid {
             display: flex;
             flex-wrap: wrap;
@@ -169,6 +167,7 @@
             min-width: 260px;
             max-width: 360px;
             box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
         }
 
         .choice-card:hover {
@@ -202,6 +201,32 @@
             font-weight: 500;
         }
 
+        .admin-link {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #ccd6f0;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid rgba(233, 196, 126, 0.3);
+            font-family: 'Inter', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        .admin-link:hover {
+            background: rgba(233, 196, 126, 0.2);
+            color: #e9c47e;
+            border-color: #e9c47e;
+            transform: translateY(-2px);
+        }
+
         @media (max-width: 700px) {
             .cards-grid {
                 gap: 1.5rem;
@@ -212,12 +237,17 @@
             .choice-card h2 {
                 font-size: 1.6rem;
             }
+            .admin-link {
+                bottom: 12px;
+                right: 12px;
+                padding: 6px 12px;
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- анимированный фон -->
-    <div class="animated-bg">Вы полоучили скидку 10%</div>
+    <div class="animated-bg"></div>
     <div class="waves">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
             <path fill="rgba(233,196,126,0.1)" fill-opacity="0.5" d="M0,192L48,197.3C96,203,192,213,288,208C384,203,480,181,576,176C672,171,768,181,864,197.3C960,213,1056,235,1152,229.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
@@ -227,22 +257,69 @@
 
     <div class="container">
         <div class="hero">
-            <div class="hero__badge"></div>
+            <div class="hero__badge">✨ Вдохновение начинается здесь ✨</div>
             <h1>Откуда вы получили флаер?</h1>
+            <p>поделитесь историей — вдохновляйте нас</p>
         </div>
 
         <div class="cards-grid">
-            <a href="main.html" class="choice-card">
+            <div class="choice-card" data-type="flyer">
                 <span class="card-icon">✨</span>
                 <h2>ФЛАЕР</h2>
                 <p>Если вам дал его промоутер</p>
-            </a>
-            <a href="main.html" class="choice-card">
+            </div>
+            <div class="choice-card" data-type="mail">
                 <span class="card-icon">📬</span>
                 <h2>ПОЧТА</h2>
                 <p>Если вынули из почтового ящика</p>
-            </a>
+            </div>
         </div>
     </div>
+
+    <a href="admin/admin.html" class="admin-link">🔐 Администратор</a>
+
+    <!-- Firebase конфигурация (замените на свои данные) -->
+    <script>
+        // Вставьте сюда ваш конфиг Firebase
+        const firebaseConfig = {
+            apiKey: "ВАШ_API_KEY",
+            authDomain: "ВАШ_AUTH_DOMAIN",
+            databaseURL: "https://ВАШ_ПРОЕКТ-default-rtdb.firebaseio.com",
+            projectId: "ВАШ_PROJECT_ID",
+            storageBucket: "ВАШ_STORAGE_BUCKET",
+            messagingSenderId: "ВАШ_SENDER_ID",
+            appId: "ВАШ_APP_ID"
+        };
+
+        // Инициализация Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const countersRef = database.ref('counters');
+
+        // Функция увеличения счётчика
+        async function incrementCounter(type) {
+            try {
+                const snapshot = await countersRef.child(type).once('value');
+                let current = snapshot.val() || 0;
+                await countersRef.child(type).set(current + 1);
+                console.log(`Счётчик ${type} увеличен до ${current + 1}`);
+            } catch (error) {
+                console.error('Ошибка записи в Firebase:', error);
+            }
+        }
+
+        // Обработка кликов по карточкам
+        document.querySelectorAll('.choice-card').forEach(card => {
+            card.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const type = card.getAttribute('data-type');
+                if (type === 'flyer' || type === 'mail') {
+                    await incrementCounter(type);
+                    // После увеличения счётчика переходим на main.html
+                    window.location.href = 'main.html';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
