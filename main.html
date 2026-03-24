@@ -3,62 +3,315 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Первый Творческий | Портфолио</title>
-  <link rel="stylesheet" href="main.css" />
+  <title>Первый Творческий</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #e0e7f0;
+      --text: #2d3748;
+      --accent: #d4af37;
+      --dark: #1a1a1a;
+      --gray: #333;
+      --light: #f8f9fa;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Hero section — с полупрозрачной плашкой для текста */
+    .hero {
+      position: relative;
+      height: 80vh;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: url('images/hero-bg.jpg') no-repeat center center/cover;
+      color: white;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+      padding: 80px 20px 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      margin-bottom: 16px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.9;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    /* Навигация */
+    nav {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 24px;
+      font-size: 1rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      transition: opacity 0.3s;
+    }
+    nav a:hover { opacity: 0.8; }
+
+    /* Слайдер / галерея */
+    .gallery {
+      padding: 100px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 50px;
+      position: relative;
+    }
+    .gallery-title::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .slider {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slide {
+      flex: 0 0 calc(33.333% - 20px);
+      scroll-snap-align: start;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      transition: transform 0.4s, box-shadow 0.4s;
+    }
+    .slide:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+    }
+
+    .slide img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* CTA кнопка */
+    .cta {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 48px;
+      background: var(--accent);
+      color: #000;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+      transition: all 0.4s ease;
+    }
+    .btn:hover {
+      background: #c99d2e;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(212, 175, 55, 0.6);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #ddd;
+      padding: 40px 20px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .footer-btn {
+      background: #333;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .footer-btn:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #aaa;
+      text-decoration: none;
+      font-size: 1.1rem;
+      margin-top: 12px;
+      transition: color 0.3s;
+    }
+    .github-link:hover { color: var(--accent); }
+
+    .copyright {
+      margin-top: 24px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Анимации */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Мобилка */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.6rem; }
+      .hero p { font-size: 1.2rem; }
+      .slide {
+        flex: 0 0 calc(50% - 10px);
+      }
+      nav { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .slide { flex: 0 0 100%; }
+      .footer-links { flex-direction: column; gap: 16px; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Header / Navigation -->
-  <header class="site-header">
-    <div class="container">
-      <div class="logo">
-        <span class="logo-text">Первый Творческий</span>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-overlay">
+      <h1>Первый Творческий</h1>
+      <p>Создаём проекты с душой и заботой о людях</p>
+    </div>
+    <nav>
+      <a href="#">HOME</a>
+      <a href="#">PORTFOLIO</a>
+      <a href="#">ABOUT</a>
+    </nav>
+  </section>
+
+  <!-- Галерея -->
+  <section class="gallery">
+    <h2 class="gallery-title">Наши проекты</h2>
+    <div class="slider">
+      <div class="slide">
+        <img src="images/001.jpg" alt="Проект 1">
       </div>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="#" class="nav-link active">HOME</a></li>
-          <li><a href="#" class="nav-link">PORTFOLIO</a></li>
-          <li><a href="#" class="nav-link">ABOUT US</a></li>
-        </ul>
-      </nav>
-      <div class="search-icon">🔍</div>
+      <div class="slide">
+        <img src="images/002.jpg" alt="Проект 2">
+      </div>
+      <div class="slide">
+        <img src="images/003.jpg" alt="Проект 3">
+      </div>
+      <div class="slide">
+        <img src="images/004.jpg" alt="Проект 4">
+      </div>
+      <div class="slide">
+        <img src="images/005.jpg" alt="Проект 5">
+      </div>
     </div>
-  </header>
+  </section>
 
-  <!-- Hero Slider -->
-  <section class="hero-slider">
-    <div class="slider-wrapper">
-      <div class="slide" style="background-image: url('images/001.jpg');"></div>
-      <div class="slide" style="background-image: url('images/002.jpg');"></div>
-      <div class="slide" style="background-image: url('images/003.jpg');"></div>
-      <div class="slide" style="background-image: url('images/004.jpg');"></div>
-      <div class="slide" style="background-image: url('images/005.jpg');"></div>
-    </div>
-
-    <!-- Slide overlay text -->
-    <div class="slide-content">
-      <span class="category">PROJECT</span>
-      <h2 class="slide-title">Lorem ipsum est quis sem molestie</h2>
-    </div>
-
-    <!-- Controls (optional) -->
-    <button class="slider-btn prev">‹</button>
-    <button class="slider-btn next">›</button>
+  <!-- CTA -->
+  <section class="cta">
+    <a href="https://vk.com/skckk" target="_blank" class="btn">Перейти в сообщество</a>
   </section>
 
   <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-left">
-        <a href="https://vk.com/skckk" target="_blank" aria-label="ВКонтакте">.VK</a>
-        <a href="https://github.com/mihail196801-ops/PrOmOsItE/" target="_blank" aria-label="GitHub">GH</a>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <button class="footer-btn" onclick="window.location.href='404/404.html'">
+          🚨 Посмотреть 404
+        </button>
+        <a href="https://github.com/mihail196801-ops/PrOmOsItE/" target="_blank" class="github-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.835 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.605-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.98-.399 3.003-.404 1.023.005 2.055.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.654 1.653.242 2.874.18 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.334-5.479 5.926.43.372.823 1.102.823 2.222v3.293c0 .314.192.694.801.576 4.765-1.589 8.199-6.084 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
       </div>
-      <div class="footer-right">
-        <span>© 2026 Первый Творческий</span>
-        <span class="theme-credit">— powered by FX Theme Store</span>
-      </div>
-    </div>
- </footer>
 
-  <script src="slider.js"></script>
+      <p class="copyright">
+        © 2026 Первый Творческий — powered by FX Theme Store
+      </p>
+    </div>
+  </footer>
+
 </body>
 </html>
