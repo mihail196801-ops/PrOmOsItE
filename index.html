@@ -3,48 +3,184 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Выберите источник флаера | Первый Творческий</title>
-  <meta name="description" content="Вам предоставлена скидка 12%. Выберите, откуда вы получили флаер: от промоутера или по почте.">
-  <link rel="stylesheet" href="styles.css" />
+  <title>Где вы получили флаер?</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #ffeb3b;
+      font-family: 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Скидочная лента сверху */
+    .discount-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #2e2e2e;
+      color: white;
+      text-align: center;
+      padding: 12px 0;
+      font-size: 2.4rem;
+      font-weight: 700;
+      z-index: 100;
+      letter-spacing: 1px;
+      animation: slideInTop 0.8s ease-out;
+    }
+
+    .highlight {
+      color: #ffeb3b;
+      text-shadow: 0 0 6px rgba(255, 235, 59, 0.8);
+    }
+
+    @keyframes slideInTop {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .container {
+      padding-top: 100px;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      color: #5D4037;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 60px;
+      text-shadow: 3px 3px 0 #FFC107;
+    }
+
+    /* SVG-контейнер */
+    .svg-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 500px;
+      margin: 0 auto;
+    }
+
+    /* Анимация при наведении на стрелки */
+    .arrow-group:hover .arrow-path {
+      stroke: #3E2723;
+      stroke-width: 3;
+    }
+    .arrow-group:hover .arrow-text {
+      fill: #2e2e2e;
+      font-weight: 800;
+    }
+
+    /* Подвал с GitHub */
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #1a1a1a;
+      color: #ddd;
+      text-align: center;
+      padding: 16px 0;
+      font-size: 1.1rem;
+    }
+
+    .footer a {
+      color: #aaa;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s;
+    }
+    .footer a:hover { color: #ffeb3b; }
+  </style>
 </head>
 <body>
-  <!-- Скидочная лента — сверху, фиксировано -->
-  <div class="discount-banner" aria-live="polite">
-    <span class="discount-text">Вам предоставлена скидка</span>
-    <span class="discount-value">12%</span>
+
+  <!-- Скидка сверху -->
+  <div class="discount-banner">
+    Вам предоставлена скидка <span="highlight">12%</span>
   </div>
 
-  <main class="main-layout">
-    <h1 class="main-title" aria-label="Заголовок: выберите откуда вы получили флаер?">
-      ВЫБЕРИТЕ ОТКУДА ВЫ ПОЛУЧИЛИ ФЛАЕР?
-    </h1>
+  <div class="container">
+    <h1 class="title">Где вы получили флаер?</h1>
 
-    <!-- Композиция: столб + флаер + стрелки -->
-    <div class="signpost-composition">
-      <img src="images/stolb.png" alt="Деревянный указательный столб" class="signpost-pole" />
+    <div class="svg-wrapper">
+      <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
+        <!-- Земля -->
+        <path d="M0 450 Q150 400 300 430 T600 450" stroke="#000" stroke-width="4" fill="none"/>
 
-      <img src="images/000.png" alt="Флаер с предложением" class="signpost-flyer" />
+        <!-- Столб (простой цилиндр + верхушка) -->
+        <rect x="290" y="100" width="20" height="300" fill="#8B5A2B" stroke="#000" stroke-width="1"/>
+        <ellipse cx="300" cy="100" rx="12" ry="8" fill="#D4037" stroke="#000" stroke-width="1"/>
+        <!-- Текстура столба — простые линии -->
+        <line x1="292" y1="120" x2="308" y2="120" stroke="#000" stroke-width="0.5"/>
+        <line x1="292" y1="150" x2="308" y2="150" stroke="#000" stroke-width="0.5"/>
+        <line x1="292" y1="180" x2="308" y2="180" stroke="#000" stroke-width="0.5"/>
+        <line x1="292" y1="210" x2="308" y2="210" stroke="#000" stroke-width="0.5"/>
+        <line x1="292" y1="240" x2="308" y2="240" stroke="#000" stroke-width="0.5"/>
+        <line x1="292" y1="270" x2="308" y2="270" stroke="#000" stroke-width="0.5"/>
+        <line x1="292" y1="300" x2="308" y2="300" stroke="#000" stroke-width="0.5"/>
+        <line x1="292" y1="330" x2="308" y2="330" stroke="#000" stroke-width="0.5"/>
+        <line x1="292" y1="360" x2="308" y2="360" stroke="#000" stroke-width="0.5"/>
 
-      <a href="main.html"
-         class="signpost-arrow signpost-arrow--top"
-         aria-label="Выбрать: от промоутера">
-        <span class="signpost-arrow__text">От промоутера</span>
-      </a>
+        <!-- Верхняя стрелка («От промоутера») -->
+        <g class="arrow-group" transform="translate(150, 180)">
+          <!-- Стрелка -->
+          <path class="arrow-path"
+                d="M0 0 L180 0 Q200 -10 200 0 Q200 10 180 0 L0 0 Z"
+                fill="#DEB887" stroke="#000" stroke-width="2"/>
+          <!-- Текст -->
+          <text class="arrow-text" x="90" y18" text-anchor="middle" font-size="24" font-weight="800" fill="#000" font-family="sans-serif">
+            От промоутера
+          </text>
+          <!-- Кликабельная область -->
+          <a href="main.html">
+            <rect x="-10" y="-20" width="220" height="60" fill="none"/>
+          </a>
+        </g>
 
-      <a href="main.html"
-         class="signpost-arrow signpost-arrow--bottom"
-         aria-label="Выбрать: по почте">
-        <span class="signpost-arrow__text">По почте</span>
-      </a>
+        <!-- Нижняя стрелка («По почте») -->
+        <g class="arrow-group" transform="translate(150, 300)">
+          <path class="arrow-path"
+                d="M0 0 L180 0 Q200 -10 200 0 Q200 10 180 0 L0 0 Z"
+                fill="#DEB887" stroke="#000" stroke-width="2"/>
+          <text class="arrow-text" x="90" y="18" text-anchor="middle" font-size="24" font-weight="800" fill="#000" font-family="sans-serif">
+            По почте
+          </text>
+          <a href="main.html">
+            <rect x="-10" y="-20" width="220" height="60 fill="none"/>
+          </a>
+        </g>
+
+        <!-- Рукописный заголовок "Где вы получили флаер?" -->
+        <text x="300" y="60" text-anchor="middle" font-size="48" font-family="Comic Sans MS, cursive" fill="#000" stroke="#000" stroke-width="1">
+          Где вы получили флаер?
+        </text>
+      </svg>
     </div>
-  </main>
+  </div>
 
-  <!-- Для 404 — серверная настройка не требуется, но можно добавить meta -->
-  <script>
-    // Опционально: автоматический редирект при ошибке (если нет .htaccess)
-    // document.addEventListener('DOMContentLoaded', () => {
-    //   if (window.location.pathname === '/404') window.location.href = '/';
-    // });
-  </script>
+  <!-- Подвал -->
+  <div class="footer">
+    <a href="https://github.com/mihail196801-ops/PrOmOsItE/" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.835 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.605-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.98-.399 3.003-.404 1.023.005 2.055.138 3.003.404 2.291-1.552 3.297-1.23 3.297-1.23.654 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 04.609-2.807 5.334-5.479 5.926.43.372.823 1.102.823 2.222v3.293c0 .314.192.694.801.576 4.765-1.589 8.199-6.084 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+      </svg>
+      github.com/mihail196801-ops/PrOmOsItE
+    </a>
+  </div>
+
 </body>
 </html>
