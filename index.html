@@ -7,7 +7,7 @@
     <meta name="description" content="Расскажите, откуда вы узнали о нашем гостевом доме. Выберите вариант и переходите к вдохновляющему контенту.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,175 +15,233 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --bg: #ffffff;
-            --text-dark: #1a2a3a;
-            --text-soft: #2c3e50;
-            --accent: #b8860b;
-            --accent-light: #faf0e6;
-            --shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text-dark);
-            line-height: 1.5;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem 1.5rem;
+            position: relative;
+            background: #0a0f1a;
+            /* анимационный фон с волнами */
+            overflow-x: hidden;
+        }
+
+        /* Уникальный анимированный фон */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(125deg, #0f172a 0%, #1e293b 40%, #2d3a4e 100%);
+            overflow: hidden;
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle at 30% 40%, rgba(203, 153, 55, 0.2) 0%, rgba(0,0,0,0) 60%);
+            animation: pulse 12s infinite alternate;
+        }
+
+        .animated-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 120%;
+            height: 80%;
+            background: repeating-linear-gradient(45deg, rgba(203, 153, 55, 0.05) 0px, rgba(203, 153, 55, 0.05) 2px, transparent 2px, transparent 8px);
+            transform: rotate(-5deg);
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(1.2) rotate(3deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* волны SVG */
+        .waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            z-index: 1;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .waves svg {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
         }
 
         .container {
-            max-width: 1280px;
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
             width: 100%;
             margin: 0 auto;
+            backdrop-filter: blur(2px);
         }
 
         /* Hero секция */
         .hero {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
         .hero__badge {
             display: inline-block;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
+            letter-spacing: 3px;
+            color: #e9c47e;
             margin-bottom: 1rem;
             font-weight: 500;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
         }
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(2.2rem, 7vw, 4rem);
-            font-weight: 600;
-            color: #1e2f3f;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #1e2f3f, #b8860b);
+            background: linear-gradient(135deg, #f5e7c8, #e9c47e, #f0dbaa);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
         .hero p {
             font-size: 1.2rem;
-            color: #5b6e7c;
-            max-width: 600px;
+            color: #e0e7ff;
+            max-width: 550px;
             margin: 0 auto;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(4px);
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            display: inline-block;
         }
 
-        /* Карточки с иконками */
+        /* Карточки с иконками — только кнопки, без картинок */
         .cards-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 2rem;
+            gap: 2.5rem;
             margin: 3rem 0;
         }
 
         .choice-card {
-            background: #ffffff;
+            background: rgba(20, 28, 40, 0.75);
+            backdrop-filter: blur(12px);
             border-radius: 2rem;
-            padding: 2rem 2rem 2rem;
+            padding: 2rem 2.5rem;
             text-align: center;
             text-decoration: none;
             color: inherit;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(184, 134, 11, 0.15);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(233, 196, 126, 0.3);
             flex: 1;
-            min-width: 240px;
-            max-width: 320px;
+            min-width: 260px;
+            max-width: 360px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
         }
 
         .choice-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.15);
-            border-color: var(--accent);
+            transform: translateY(-10px);
+            border-color: #e9c47e;
+            box-shadow: 0 30px 45px -12px rgba(233, 196, 126, 0.3);
+            background: rgba(30, 40, 55, 0.85);
         }
 
         .card-icon {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-bottom: 1rem;
             display: block;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
 
         .choice-card h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
+            font-size: 2rem;
+            font-weight: 800;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #3c2e22, #a57c2c);
+            background: linear-gradient(135deg, #f5e7c8, #e9c47e);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
+            letter-spacing: -0.5px;
         }
 
         .choice-card p {
-            color: #7b6b54;
-            font-size: 0.95rem;
-        }
-
-        /* Иллюстрации (промоутер и ящик) */
-        .illustrations {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-            opacity: 0.9;
-        }
-
-        .illustrations img {
-            max-width: 140px;
-            height: auto;
-            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.05));
-            transition: transform 0.2s;
-        }
-
-        .illustrations img:hover {
-            transform: translateY(-3px);
+            color: #b9c7d9;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         @media (max-width: 700px) {
             .cards-grid {
                 gap: 1.5rem;
             }
-            .illustrations img {
-                max-width: 100px;
+            .choice-card {
+                padding: 1.5rem 1.8rem;
+            }
+            .choice-card h2 {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- анимированный фон -->
+    <div class="animated-bg"></div>
+    <div class="waves">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="rgba(233,196,126,0.1)" fill-opacity="0.5" d="M0,192L48,197.3C96,203,192,213,288,208C384,203,480,181,576,176C672,171,768,181,864,197.3C960,213,1056,235,1152,229.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <path fill="rgba(233,196,126,0.2)" fill-opacity="0.4" d="M0,224L48,213.3C96,203,192,181,288,176C384,171,480,181,576,197.3C672,213,768,235,864,234.7C960,235,1056,213,1152,197.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </div>
+
     <div class="container">
         <div class="hero">
-            <div class="hero__badge">✨ Вдохновение начинается здесь ✨</div>
+            <div class="hero__badge">Вы получили скидку 10%</div>
             <h1>Откуда вы получили флаер?</h1>
-            <p>поделитесь историей — вдохновляйте нас</p>
         </div>
 
         <div class="cards-grid">
             <a href="main.html" class="choice-card">
                 <span class="card-icon">✨</span>
                 <h2>ФЛАЕР</h2>
-                <p>получи вдохновение</p>
+                <p>Если вам дал его промоутер</p>
             </a>
             <a href="main.html" class="choice-card">
                 <span class="card-icon">📬</span>
                 <h2>ПОЧТА</h2>
-                <p>отправить привет</p>
+                <p>Если вынули из почтового ящика</p>
             </a>
-        </div>
-
-        <div class="illustrations">
-            <img src="images/promouter.jpg" alt="Промоутер" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23f5ede2%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%239b7b4a%22%3Epromouter%3C%2Ftext%3E%3C%2Fsvg%3E'">
-            <img src="images/yazhik.jpg" alt="Почтовый ящик" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23fff0e0%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23bc5a48%22%3E📬%3C%2Ftext%3E%3C%2Fsvg%3E'">
         </div>
     </div>
 </body>
