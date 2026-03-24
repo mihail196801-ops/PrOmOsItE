@@ -85,17 +85,7 @@
             height: 100%;
         }
 
-        /* Параллакс-изображение mes.png */
-        .parallax-mes {
-            position: fixed;
-            z-index: 2;
-            pointer-events: none;
-            width: 120px;
-            height: auto;
-            transition: transform 0.1s linear;
-            will-change: transform;
-        }
-
+        /* Контейнер контента */
         .container {
             position: relative;
             z-index: 10;
@@ -311,9 +301,6 @@
                 flex-direction: column;
                 text-align: center;
             }
-            .parallax-mes {
-                width: 80px;
-            }
         }
     </style>
 </head>
@@ -326,8 +313,8 @@
         </svg>
     </div>
 
-    <!-- Параллакс-изображение (mes.png) -->
-    <img src="images/mes.png" class="parallax-mes" alt="mes" style="position: fixed; width: 100px; pointer-events: none; z-index: 2;" id="mesImage">
+    <!-- Параллакс-изображение (mes.png). Если фон чёрный – замените файл на PNG с прозрачностью -->
+    <img src="images/mes.png" id="mesImage" alt="mes" style="position: fixed; bottom: 5%; right: 5%; width: 100px; pointer-events: none; z-index: 2; transition: transform 0.05s linear; background: transparent;">
 
     <div class="container">
         <div class="nav">
@@ -378,7 +365,7 @@
     </footer>
 
     <script>
-        // Карусель (автопрокрутка, стрелки, точки)
+        // Карусель
         (function() {
             const carousel = document.getElementById('carousel');
             const slides = document.querySelectorAll('.carousel-slide');
@@ -488,9 +475,8 @@
             document.addEventListener('mousemove', (e) => {
                 const mouseX = e.clientX / window.innerWidth;
                 const mouseY = e.clientY / window.innerHeight;
-                // Смещение относительно центра (max 40px)
-                const offsetX = (mouseX - 0.5) * 80;
-                const offsetY = (mouseY - 0.5) * 60;
+                const offsetX = (mouseX - 0.5) * 60;
+                const offsetY = (mouseY - 0.5) * 40;
                 mes.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
             });
         }
