@@ -8,16 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
@@ -29,7 +21,6 @@
             background: #0a0f1a;
             overflow-x: hidden;
         }
-
         .animated-bg {
             position: fixed;
             top: 0;
@@ -40,7 +31,6 @@
             background: linear-gradient(125deg, #0f172a 0%, #1e293b 40%, #2d3a4e 100%);
             overflow: hidden;
         }
-
         .animated-bg::before {
             content: '';
             position: absolute;
@@ -48,10 +38,9 @@
             height: 200%;
             top: -50%;
             left: -50%;
-            background: radial-gradient(circle at 30% 40%, rgba(203, 153, 55, 0.2) 0%, rgba(0,0,0,0) 60%);
+            background: radial-gradient(circle at 30% 40%, rgba(203,153,55,0.2) 0%, rgba(0,0,0,0) 60%);
             animation: pulse 12s infinite alternate;
         }
-
         .animated-bg::after {
             content: '';
             position: absolute;
@@ -59,22 +48,14 @@
             left: -10%;
             width: 120%;
             height: 80%;
-            background: repeating-linear-gradient(45deg, rgba(203, 153, 55, 0.05) 0px, rgba(203, 153, 55, 0.05) 2px, transparent 2px, transparent 8px);
+            background: repeating-linear-gradient(45deg, rgba(203,153,55,0.05) 0px, rgba(203,153,55,0.05) 2px, transparent 2px, transparent 8px);
             transform: rotate(-5deg);
             pointer-events: none;
         }
-
         @keyframes pulse {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 0.3;
-            }
-            100% {
-                transform: scale(1.2) rotate(3deg);
-                opacity: 0.7;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity:0.3; }
+            100% { transform: scale(1.2) rotate(3deg); opacity:0.7; }
         }
-
         .waves {
             position: absolute;
             bottom: 0;
@@ -85,14 +66,12 @@
             opacity: 0.3;
             pointer-events: none;
         }
-
         .waves svg {
             position: absolute;
             bottom: 0;
             width: 100%;
             height: 100%;
         }
-
         .container {
             position: relative;
             z-index: 10;
@@ -101,12 +80,10 @@
             margin: 0 auto;
             backdrop-filter: blur(2px);
         }
-
         .hero {
             text-align: center;
             margin-bottom: 3rem;
         }
-
         .hero__badge {
             display: inline-block;
             font-size: 0.9rem;
@@ -120,7 +97,6 @@
             padding: 0.3rem 1rem;
             border-radius: 40px;
         }
-
         .hero h1 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(2.5rem, 8vw, 4.5rem);
@@ -132,7 +108,6 @@
             color: transparent;
             text-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
-
         .hero p {
             font-size: 1.2rem;
             color: #e0e7ff;
@@ -144,7 +119,6 @@
             border-radius: 60px;
             display: inline-block;
         }
-
         .cards-grid {
             display: flex;
             flex-wrap: wrap;
@@ -152,38 +126,34 @@
             gap: 2.5rem;
             margin: 3rem 0;
         }
-
         .choice-card {
-            background: rgba(20, 28, 40, 0.75);
+            background: rgba(20,28,40,0.75);
             backdrop-filter: blur(12px);
             border-radius: 2rem;
             padding: 2rem 2.5rem;
             text-align: center;
             text-decoration: none;
             color: inherit;
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            border: 1px solid rgba(233, 196, 126, 0.3);
+            transition: all 0.4s cubic-bezier(0.2,0.9,0.4,1.1);
+            border: 1px solid rgba(233,196,126,0.3);
             flex: 1;
             min-width: 260px;
             max-width: 360px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.3);
             cursor: pointer;
         }
-
         .choice-card:hover {
             transform: translateY(-10px);
             border-color: #e9c47e;
-            box-shadow: 0 30px 45px -12px rgba(233, 196, 126, 0.3);
-            background: rgba(30, 40, 55, 0.85);
+            box-shadow: 0 30px 45px -12px rgba(233,196,126,0.3);
+            background: rgba(30,40,55,0.85);
         }
-
         .card-icon {
             font-size: 4rem;
             margin-bottom: 1rem;
             display: block;
             filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
         }
-
         .choice-card h2 {
             font-size: 2rem;
             font-weight: 800;
@@ -194,19 +164,17 @@
             color: transparent;
             letter-spacing: -0.5px;
         }
-
         .choice-card p {
             color: #b9c7d9;
             font-size: 1rem;
             font-weight: 500;
         }
-
         .admin-link {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0,0,0,0.4);
             backdrop-filter: blur(8px);
             padding: 8px 16px;
             border-radius: 40px;
@@ -215,34 +183,21 @@
             color: #ccd6f0;
             text-decoration: none;
             transition: all 0.2s;
-            border: 1px solid rgba(233, 196, 126, 0.3);
+            border: 1px solid rgba(233,196,126,0.3);
             font-family: 'Inter', monospace;
             letter-spacing: 0.5px;
         }
-
         .admin-link:hover {
-            background: rgba(233, 196, 126, 0.2);
+            background: rgba(233,196,126,0.2);
             color: #e9c47e;
             border-color: #e9c47e;
             transform: translateY(-2px);
         }
-
-        @media (max-width: 700px) {
-            .cards-grid {
-                gap: 1.5rem;
-            }
-            .choice-card {
-                padding: 1.5rem 1.8rem;
-            }
-            .choice-card h2 {
-                font-size: 1.6rem;
-            }
-            .admin-link {
-                bottom: 12px;
-                right: 12px;
-                padding: 6px 12px;
-                font-size: 0.7rem;
-            }
+        @media (max-width:700px) {
+            .cards-grid { gap:1.5rem; }
+            .choice-card { padding:1.5rem 1.8rem; }
+            .choice-card h2 { font-size:1.6rem; }
+            .admin-link { bottom:12px; right:12px; padding:6px 12px; font-size:0.7rem; }
         }
     </style>
 </head>
@@ -250,8 +205,8 @@
     <div class="animated-bg"></div>
     <div class="waves">
         <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path fill="rgba(233,196,126,0.1)" fill-opacity="0.5" d="M0,192L48,197.3C96,203,192,213,288,208C384,203,480,181,576,176C672,171,768,181,864,197.3C960,213,1056,235,1152,229.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
-            <path fill="rgba(233,196,126,0.2)" fill-opacity="0.4" d="M0,224L48,213.3C96,203,192,181,288,176C384,171,480,181,576,197.3C672,213,768,235,864,234.7C960,235,1056,213,1152,197.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <path fill="rgba(233,196,126,0.1)" d="M0,192L48,197.3C96,203,192,213,288,208C384,203,480,181,576,176C672,171,768,181,864,197.3C960,213,1056,235,1152,229.3C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <path fill="rgba(233,196,126,0.2)" d="M0,224L48,213.3C96,203,192,181,288,176C384,171,480,181,576,197.3C672,213,768,235,864,234.7C960,235,1056,213,1152,197.3C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
         </svg>
     </div>
 
@@ -278,44 +233,59 @@
 
     <a href="admin/admin.html" class="admin-link">🔐 Администратор</a>
 
-    <!-- Firebase конфигурация (замените на свои данные) -->
     <script>
-        // Вставьте сюда ваш конфиг Firebase
-        const firebaseConfig = {
-            apiKey: "ВАШ_API_KEY",
-            authDomain: "ВАШ_AUTH_DOMAIN",
-            databaseURL: "https://ВАШ_ПРОЕКТ-default-rtdb.firebaseio.com",
-            projectId: "ВАШ_PROJECT_ID",
-            storageBucket: "ВАШ_STORAGE_BUCKET",
-            messagingSenderId: "ВАШ_SENDER_ID",
-            appId: "ВАШ_APP_ID"
-        };
+        // ============ НАСТРОЙКИ GIST ============
+        // 1. Создайте Gist с содержимым: { "flyer": 0, "mail": 0 }
+        // 2. Скопируйте ID Gist (из URL: https://gist.github.com/ваш_логин/ID)
+        // 3. Создайте Personal Access Token (Settings → Developer settings → Tokens) с правами "gist"
+        // 4. Вставьте их ниже:
+        const GIST_ID = "bddc041a5f49f18b18aee66bcba8eed4";
+        const GITHUB_TOKEN = "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";
+        // ========================================
 
-        // Инициализация Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const countersRef = database.ref('counters');
+        const GIST_API_URL = `https://gist.github.com/mihail196801-ops/bddc041a5f49f18b18aee66bcba8eed4`;
 
-        // Функция увеличения счётчика
-        async function incrementCounter(type) {
-            try {
-                const snapshot = await countersRef.child(type).once('value');
-                let current = snapshot.val() || 0;
-                await countersRef.child(type).set(current + 1);
-                console.log(`Счётчик ${type} увеличен до ${current + 1}`);
-            } catch (error) {
-                console.error('Ошибка записи в Firebase:', error);
-            }
+        async function getStats() {
+            const response = await fetch(GIST_API_URL, {
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            const gist = await response.json();
+            const content = gist.files['stats.json'].content;
+            return JSON.parse(content);
         }
 
-        // Обработка кликов по карточкам
+        async function updateStats(type) {
+            const current = await getStats();
+            current[type] = (current[type] || 0) + 1;
+
+            const newContent = JSON.stringify(current, null, 2);
+            const patch = {
+                files: {
+                    'stats.json': {
+                        content: newContent
+                    }
+                }
+            };
+            await fetch(GIST_API_URL, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(patch)
+            });
+        }
+
         document.querySelectorAll('.choice-card').forEach(card => {
             card.addEventListener('click', async (e) => {
                 e.preventDefault();
                 const type = card.getAttribute('data-type');
-                if (type === 'flyer' || type === 'mail') {
-                    await incrementCounter(type);
-                    // После увеличения счётчика переходим на main.html
+                if (type) {
+                    await updateStats(type);
                     window.location.href = 'main.html';
                 }
             });
