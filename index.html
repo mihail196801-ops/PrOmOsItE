@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Первый Творческий</title>
+    <title>Первый Творческий — откуда флаер?</title>
+    <meta name="description" content="Расскажите, откуда вы узнали о нашем гостевом доме. Выберите вариант и переходите к вдохновляющему контенту.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,384 +15,176 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg: #ffffff;
+            --text-dark: #1a2a3a;
+            --text-soft: #2c3e50;
+            --accent: #b8860b;
+            --accent-light: #faf0e6;
+            --shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
         body {
-            background: #ffffff;   /* чистый белый фон */
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-dark);
+            line-height: 1.5;
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 2rem 1.5rem;
         }
 
-        /* главный контейнер страницы — карточка с мягкой тенью для воздушности, но фон остаётся белым */
-        .main-container {
-            max-width: 1300px;
+        .container {
+            max-width: 1280px;
             width: 100%;
-            background: #ffffff;
-            border-radius: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0,0,0,0.02);
-            overflow: hidden;
-            transition: all 0.2s ease;
-        }
-
-        /* верхняя секция: слева промоутер, справа почтовый ящик */
-        .hero-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 2rem 2rem 1rem 2rem;
-            background: #ffffff;
-        }
-
-        /* левая иллюстрация — промоутер (без фона) */
-        .promouter-img {
-            flex: 1;
-            min-width: 180px;
-            text-align: center;
-        }
-        .promouter-img img {
-            max-width: 100%;
-            height: auto;
-            display: block;
             margin: 0 auto;
-            filter: drop-shadow(0 8px 14px rgba(0,0,0,0.05));
-            transition: transform 0.3s ease;
-        }
-        .promouter-img img:hover {
-            transform: scale(1.01);
         }
 
-        /* центральный рукописный заголовок */
-        .handwritten-title {
-            flex: 2;
+        /* Hero секция */
+        .hero {
             text-align: center;
-            padding: 0 0.5rem;
+            margin-bottom: 2.5rem;
         }
-        .question-text {
-            font-family: 'Comic Sans MS', 'Bradley Hand', cursive, 'Segoe UI', 'Chalkboard SE', 'Apple Chancery', cursive;
-            font-size: clamp(1.8rem, 7vw, 3.8rem);
+
+        .hero__badge {
+            display: inline-block;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 7vw, 4rem);
             font-weight: 600;
-            color: #2c2b2b;
-            letter-spacing: -0.01em;
-            background: linear-gradient(135deg, #2b2b2b 0%, #4a3f2c 100%);
+            color: #1e2f3f;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #1e2f3f, #b8860b);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.02);
-            margin-bottom: 0.5rem;
-            word-break: break-word;
-        }
-        /* декоративная подпись под вопросом — тоже рукописный акцент */
-        .sub-caption {
-            font-family: 'Comic Sans MS', 'Bradley Hand', cursive, monospace;
-            font-size: 1rem;
-            color: #7c6b4b;
-            opacity: 0.7;
-            margin-top: 0.25rem;
         }
 
-        /* правая иллюстрация — красный 3D почтовый ящик без фона */
-        .mailbox-img {
-            flex: 1;
-            min-width: 160px;
-            text-align: center;
-        }
-        .mailbox-img img {
-            max-width: 100%;
-            height: auto;
-            display: block;
+        .hero p {
+            font-size: 1.2rem;
+            color: #5b6e7c;
+            max-width: 600px;
             margin: 0 auto;
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.1));
-            transition: transform 0.2s;
-        }
-        .mailbox-img img:hover {
-            transform: translateY(-4px);
         }
 
-        /* панель кнопок — две кликабельные деревянные таблички (SVG внутри) */
-        .buttons-panel {
+        /* Карточки с иконками */
+        .cards-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 2rem;
-            margin: 1.5rem 2rem 2.5rem 2rem;
+            margin: 3rem 0;
+        }
+
+        .choice-card {
             background: #ffffff;
-        }
-
-        .btn-image-link {
-            display: inline-block;
-            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1), filter 0.2s;
+            border-radius: 2rem;
+            padding: 2rem 2rem 2rem;
+            text-align: center;
             text-decoration: none;
-            cursor: pointer;
-        }
-        .btn-image-link:hover {
-            transform: translateY(-6px);
-            filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.1));
-        }
-        .btn-image-link:active {
-            transform: translateY(2px);
+            color: inherit;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(184, 134, 11, 0.15);
+            flex: 1;
+            min-width: 240px;
+            max-width: 320px;
         }
 
-        /* общий стиль для SVG-кнопок (деревянные таблички с текстом) */
-        .wooden-svg-btn {
-            width: 220px;
-            height: auto;
+        .choice-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 45px -12px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent);
+        }
+
+        .card-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
             display: block;
-            transition: all 0.2s;
-        }
-        /* для мобильных чуть уменьшаем ширину */
-        @media (max-width: 560px) {
-            .wooden-svg-btn {
-                width: 170px;
-            }
-            .buttons-panel {
-                gap: 1.2rem;
-            }
         }
 
-        /* нижний колонтитул */
-        .footer {
-            border-top: 1px solid #f0f0f0;
-            background: #ffffff;
-            padding: 1.2rem 2rem 1.5rem;
+        .choice-card h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #3c2e22, #a57c2c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .choice-card p {
+            color: #7b6b54;
+            font-size: 0.95rem;
+        }
+
+        /* Иллюстрации (промоутер и ящик) */
+        .illustrations {
             display: flex;
+            justify-content: center;
+            gap: 2rem;
             flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-        }
-        .footer-left {
-            display: flex;
-            align-items: center;
-            gap: 1.8rem;
-            flex-wrap: wrap;
-        }
-        .github-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: #1e1e1e;
-            font-weight: 500;
-            background: #f8f9fc;
-            padding: 8px 16px;
-            border-radius: 60px;
-            transition: all 0.2s;
-            border: 1px solid #eaeef2;
-        }
-        .github-link:hover {
-            background: #f1f3f7;
-            border-color: #cdd2d8;
-            transform: scale(0.98);
-        }
-        .github-icon-svg {
-            width: 24px;
-            height: 24px;
-            fill: #1e1e1e;
-        }
-        .btn-404 {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 8px 20px;
-            background-color: #fef5e7;
-            border-radius: 40px;
-            color: #9b6f3c;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            border: 1px solid #f3e5ce;
-        }
-        .btn-404:hover {
-            background-color: #faeecb;
-            color: #7a531f;
-            border-color: #e7d2ac;
-        }
-        .copyright {
-            font-size: 0.85rem;
-            color: #8b8a8a;
-            letter-spacing: 0.3px;
-            background: #ffffff;
-        }
-        .footer-right {
-            margin-left: auto;
+            margin-top: 2rem;
+            opacity: 0.9;
         }
 
-        /* адаптивность для планшетов/мобильных */
-        @media (max-width: 860px) {
-            .hero-section {
-                flex-direction: column;
-                text-align: center;
-                gap: 0.5rem;
-                padding: 1.5rem;
-            }
-            .handwritten-title {
-                order: 1;
-                margin: 0.5rem 0;
-            }
-            .promouter-img {
-                order: 0;
-            }
-            .mailbox-img {
-                order: 2;
-            }
-            .buttons-panel {
-                margin-top: 0.5rem;
-            }
+        .illustrations img {
+            max-width: 140px;
+            height: auto;
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.05));
+            transition: transform 0.2s;
         }
 
-        @media (max-width: 650px) {
-            .footer {
-                flex-direction: column;
-                align-items: flex-start;
+        .illustrations img:hover {
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 700px) {
+            .cards-grid {
+                gap: 1.5rem;
             }
-            .footer-right {
-                margin-left: 0;
-                width: 100%;
-            }
-            .btn-404, .github-link {
-                justify-content: center;
+            .illustrations img {
+                max-width: 100px;
             }
         }
     </style>
 </head>
 <body>
-<div class="main-container">
-    <!-- Верхняя часть: слева промоутер, справа почтовый ящик, в центре рукописный заголовок -->
-    <div class="hero-section">
-        <!-- левая картинка: promouter.jpg (иллюстрация промоутера без фона) -->
-        <div class="promouter-img">
-            <img src="images/promouter.jpg" alt="Промоутер раздаёт флаеры" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23f9f3e7%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20font-family%3D%22Comic%20Sans%20MS%2C%20Bradley%20Hand%22%20fill%3D%22%23ad8b5a%22%3Epromouter.jpg%3C%2Ftext%3E%3C%2Fsvg%3E'; this.style.background='#fcf7ef';" />
+    <div class="container">
+        <div class="hero">
+            <div class="hero__badge">✨ Вдохновение начинается здесь ✨</div>
+            <h1>Откуда вы получили флаер?</h1>
+            <p>поделитесь историей — вдохновляйте нас</p>
         </div>
 
-        <!-- ЦЕНТР: рукописный заголовок -->
-        <div class="handwritten-title">
-            <div class="question-text">Откуда вы получили флаер?</div>
-            <div class="sub-caption">✍️ расскажите нам ✉️</div>
-        </div>
-
-        <!-- правая картинка: почтовый ящик красный 3D без фона -->
-        <div class="mailbox-img">
-            <img src="images/yazhik.jpg" alt="Красный почтовый ящик" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23fff0e0%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c0362c%22%20font-weight%3D%22bold%22%3E📮%20yazhik.jpg%3C%2Ftext%3E%3C%2Fsvg%3E';" />
-        </div>
-    </div>
-
-    <!-- Кнопки-изображения (кликабельные деревянные таблички) ссылаются на main.html -->
-    <div class="buttons-panel">
-        <!-- кнопка promouter / флаерная тема: promo-btn.png (SVG деревянная табличка с текстом) -->
-        <a href="main.html" class="btn-image-link" aria-label="Перейти на главную страницу промо">
-            <svg class="wooden-svg-btn" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <filter id="woodshadow" x="-0.02" y="-0.02" width="1.06" height="1.06">
-                        <feGaussianBlur in="SourceAlpha" stdDeviation="2.5"/>
-                        <feOffset dx="2" dy="3" result="offsetblur"/>
-                        <feComponentTransfer>
-                            <feFuncA type="linear" slope="0.3"/>
-                        </feComponentTransfer>
-                        <feMerge>
-                            <feMergeNode/>
-                            <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                    </filter>
-                    <linearGradient id="woodGrain" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#D9B48B"/>
-                        <stop offset="40%" stop-color="#C28A5C"/>
-                        <stop offset="70%" stop-color="#E2BE97"/>
-                        <stop offset="100%" stop-color="#B57842"/>
-                    </linearGradient>
-                    <pattern id="woodTexture" patternUnits="userSpaceOnUse" width="12" height="12">
-                        <path d="M2 2 L10 2 M0 6 L12 6 M3 10 L9 10" stroke="#AB7A44" stroke-width="1.2" stroke-linecap="round"/>
-                    </pattern>
-                </defs>
-                <rect x="6" y="8" rx="22" ry="22" width="288" height="84" fill="url(#woodGrain)" stroke="#8B5A2B" stroke-width="2.5" stroke-linejoin="round"/>
-                <rect x="6" y="8" rx="22" ry="22" width="288" height="84" fill="url(#woodTexture)" opacity="0.25"/>
-                <rect x="12" y="14" rx="16" ry="16" width="276" height="72" fill="none" stroke="#EED6B0" stroke-width="1.2" stroke-dasharray="4 3"/>
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="'Comic Sans MS', 'Bradley Hand', cursive" font-size="28" font-weight="bold" fill="#3F2A1A" stroke="#FBEED9" stroke-width="0.8">✨ ФЛАЕР ✨</text>
-                <text x="50%" y="72%" dominant-baseline="middle" text-anchor="middle" font-family="'Comic Sans MS', 'Bradley Hand', cursive" font-size="14" fill="#553B22" letter-spacing="1">Здесь</text>
-            </svg>
-        </a>
-
-        <!-- кнопка mail-btn.png → деревянная табличка с почтовой темой -->
-        <a href="main.html" class="btn-image-link" aria-label="Перейти в почтовый раздел">
-            <svg class="wooden-svg-btn" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="woodGrain2" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#CFA06F"/>
-                        <stop offset="50%" stop-color="#B87E48"/>
-                        <stop offset="100%" stop-color="#DCB280"/>
-                    </linearGradient>
-                    <pattern id="woodTexture2" patternUnits="userSpaceOnUse" width="12" height="12">
-                        <path d="M1 3 L11 3 M0 7 L12 7 M2.5 11 L9.5 11" stroke="#A06732" stroke-width="1" stroke-linecap="round"/>
-                    </pattern>
-                </defs>
-                <rect x="6" y="8" rx="22" ry="22" width="288" height="84" fill="url(#woodGrain2)" stroke="#7A4A24" stroke-width="2.5"/>
-                <rect x="6" y="8" rx="22" ry="22" width="288" height="84" fill="url(#woodTexture2)" opacity="0.3"/>
-                <rect x="12" y="14" rx="16" ry="16" width="276" height="72" fill="none" stroke="#F8EAD2" stroke-width="1.3" stroke-dasharray="5 2"/>
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="'Comic Sans MS', 'Bradley Hand', cursive" font-size="28" font-weight="bold" fill="#38240F" stroke="#FDF5E6" stroke-width="0.6">По почте</text>
-                <text x="50%" y="73%" dominant-baseline="middle" text-anchor="middle" font-family="'Comic Sans MS', 'Bradley Hand', cursive" font-size="13" fill="#593E1F">Здесь</text>
-            </svg>
-        </a>
-    </div>
-
-    <!-- Нижний колонтитул: GitHub иконка + ссылка на репозиторий, кнопка 404, подпись -->
-    <div class="footer">
-        <div class="footer-left">
-            <!-- GitHub иконка + ссылка -->
-            <a href="https://github.com/mihail196801-ops/PrOmOsItE/" class="github-link" target="_blank" rel="noopener noreferrer">
-                <svg class="github-icon-svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.253-.447-1.27.098-2.646 0 0 .84-.269 2.75 1.025.8-.223 1.65-.334 2.5-.334.85 0 1.7.111 2.5.334 1.91-1.294 2.75-1.025 2.75-1.025.545 1.376.201 2.393.099 2.646.64.698 1.03 1.591 1.03 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-                </svg>
-                <span>GitHub repo</span>
+        <div class="cards-grid">
+            <a href="main.html" class="choice-card">
+                <span class="card-icon">✨</span>
+                <h2>ФЛАЕР</h2>
+                <p>получи вдохновение</p>
             </a>
-            <!-- Кнопка 404, ссылается на /404/404.html -->
-            <a href="/404/404.html" class="btn-404" id="error404link">🔍 404</a>
+            <a href="main.html" class="choice-card">
+                <span class="card-icon">📬</span>
+                <h2>ПОЧТА</h2>
+                <p>отправить привет</p>
+            </a>
         </div>
-        <div class="footer-right">
-            <div class="copyright">© 2026 Первый Творческий</div>
+
+        <div class="illustrations">
+            <img src="images/promouter.jpg" alt="Промоутер" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23f5ede2%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%239b7b4a%22%3Epromouter%3C%2Ftext%3E%3C%2Fsvg%3E'">
+            <img src="images/yazhik.jpg" alt="Почтовый ящик" onerror="this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20200%20200%22%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20fill%3D%22%23fff0e0%22%2F%3E%3Ctext%20x%3D%2250%25%22%20y%3D%2250%25%22%20dominant-baseline%3D%22middle%22%20text-anchor%3D%22middle%22%20fill%3D%22%23bc5a48%22%3E📬%3C%2Ftext%3E%3C%2Fsvg%3E'">
         </div>
     </div>
-</div>
-
-<!-- 
-    Дополнительная гарантия, что кнопки-изображения всегда ведут на main.html,
-    даже если вдруг какие-то внешние помехи (предотвращаем случайную блокировку)
-    также обеспечиваем корректную работу touch-событий.
-    Никаких лишних действий, просто кликабельные изображения.
-    При отсутствии реальных images/promouter.jpg или images/yazhik.jpg,
-    fallback сработает через onerror, но дизайн останется целостным.
-    SVG-кнопки полностью соответствуют описанию "деревянные таблички с текстом".
--->
-
-<script>
-    // Небольшая простая проверка: если вдруг ссылки main.html не существует — ничего не меняем,
-    // так как задание просит именно ссылки на main.html. Дополнительно добавим лог в консоль для уверенности.
-    // Также гарантируем, что ссылки на кнопки ведут корректно (уже прописано в href).
-    // При необходимости делаем лёгкую защиту от случайного перехвата событий (всё уже корректно).
-    // По условию: кнопки — кликабельные изображения, ведущие на main.html.
-    // Дополнительно: для доступности добавлены aria-label.
-    console.log('Страница index.html загружена — все кнопки-изображения ведут на main.html, фон белый, нижний колонтитул активен.');
-    // Убедимся, что при клике на 404-страницу нет ошибок маршрутизации (просто ссылка)
-    // А также добавим fallback для изображений, если не загружены — они уже имеют data:image заглушки, сохраняющие концепцию.
-</script>
-
-<!-- 
-    Полное соответствие спецификации:
-    1) Фон #ffffff.
-    2) Верхняя часть: слева promouter.jpg, справа yazhik.jpg (оба без фона либо с прозрачностью; картинки с onerror заглушками, но стилизованы).
-    3) Центр: рукописный заголовок "Откуда вы получили флаер?" шрифт Comic Sans MS, Bradley Hand, cursive.
-    4) Кнопки — не текстовые, а кликабельные изображения (выполнены в виде деревянных SVG табличек с надписями, которые ведут на main.html).
-       Дублируют функционал promo-btn.png / mail-btn.png (SVG версия с древесным декором).
-    5) Нижний колонтитул: иконка GitHub + ссылка на https://github.com/mihail196801-ops/PrOmOsItE/ ; кнопка 404 на /404/404.html ; подпись "© 2026 Первый Творческий".
-    
-    Все требования выполнены. Кроссбраузерно, адаптивно.
--->
 </body>
 </html>
